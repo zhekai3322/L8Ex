@@ -26,14 +26,13 @@ const Edit = ({ navigation, route }) => {
             const currentBook = route.params.book[i];
             if (currentBook.isbn === book.isbn) {
                 updatedBooks.push({
-                    ...currentBook,
+                    currentBook,
                     title,
                     isbn,
                     copies: parseInt(copies, 10),
                     imageUrl,
                 });
             } else {
-                // Add the book as is
                 updatedBooks.push(currentBook);
             }
         }

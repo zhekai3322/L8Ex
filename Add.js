@@ -12,7 +12,7 @@ const Add = ({ navigation, route }) => {
     const [copies, setCopies] = useState('');
     const [imageUrl, setImageUrl] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log('Form submitted');
         if (!title || !isbn || !copies || !imageUrl) {
             console.log('Validation failed: All fields are required.');
@@ -30,10 +30,13 @@ const Add = ({ navigation, route }) => {
         const stringData = JSON.stringify(myBooks);
 
         setBooks(myBooks);
-        AsyncStorage.setItem('books', stringData).then(() => {
+        try {
+            await AsyncStorage.setItem('books', stringData);
             console.log('Book data saved successfully');
             navigation.navigate('Home');
-        });
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
     };
 
     return (
